@@ -141,7 +141,7 @@ public class PlayerController : NetworkBehaviour
             bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * 30;
             NetworkServer.Spawn(bullet1);
             NetworkServer.Spawn(bullet2);
-            AudioSource.PlayClipAtPoint(_fireSound, this.transform.position);
+            AudioSource.PlayClipAtPoint(_fireSound[Random.Range(0, _fireSound.Length)], this.transform.position);
             Destroy(bullet1, 2.0f);
             Destroy(bullet2, 2.0f);
         }
