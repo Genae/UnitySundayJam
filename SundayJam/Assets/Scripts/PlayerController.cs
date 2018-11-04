@@ -107,7 +107,7 @@ public class PlayerController : NetworkBehaviour
     {
         GetComponent<MeshRenderer>().material = LocalPlayerMaterial;
         GetComponent<MeshRenderer>().material.color = Color.blue;
-        EquipWeapon(Resources.FindObjectsOfTypeAll<WeaponBase>().First());
+        EquipWeapon(Resources.LoadAll<WeaponBase>("Items").First(w => !w.Automatic));
     }
 
     // This [Command] code is called on the Client …
@@ -123,7 +123,7 @@ public class PlayerController : NetworkBehaviour
             bulletSpawn.rotation);
 
         // Add velocity to the bullet
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 30;
 
         // Spawn the bullet on the Clients
         NetworkServer.Spawn(bullet);
