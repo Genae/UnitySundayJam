@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e4b3f85bb90c89479542492fc377fa9, type: 3}
-  m_Name: Shotgun
+  m_Name: ShotGun
   m_EditorClassIdentifier: 
   Automatic: 0
   Cooldown: 0
   MaxAmmunition: 0
   CurrentAmmunition: 0
-  fireSound: {fileID: 0}
+  FireSounds: []
   bulletPrefab: {fileID: 0}
   player: {fileID: 0}
