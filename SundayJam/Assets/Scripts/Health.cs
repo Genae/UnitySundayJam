@@ -12,7 +12,7 @@ public class Health : NetworkBehaviour
 
     public RectTransform healthBar;
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, PlayerController owner)
     {
         if (!isServer)
             return;
@@ -21,6 +21,8 @@ public class Health : NetworkBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            owner.Kills++;
+            GetComponent<PlayerController>().Deaths++;
             RpcRespawn();
         }
     }

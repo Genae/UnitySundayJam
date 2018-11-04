@@ -16,6 +16,10 @@ public class PlayerController : NetworkBehaviour
     public bool IsInvisible = true;
     private float _timer;
 
+    public string PlayerName = "Dummy";
+    public int Kills = 0;
+    public int Deaths = 0;
+
     void Update()
     {
         if (!isLocalPlayer)
