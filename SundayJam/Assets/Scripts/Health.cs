@@ -5,6 +5,7 @@ public class Health : NetworkBehaviour
 {
 
     public const int maxHealth = 100;
+    public const int baseTankiness = 0;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = maxHealth;
@@ -16,7 +17,7 @@ public class Health : NetworkBehaviour
         if (!isServer)
             return;
 
-        currentHealth -= amount;
+        currentHealth -= (amount - baseTankiness);
         if (currentHealth <= 0)
         {
             currentHealth = 0;

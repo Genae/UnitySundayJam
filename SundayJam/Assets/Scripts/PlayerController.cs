@@ -6,6 +6,8 @@ public class PlayerController : NetworkBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
+    private float _playerSpeed = 6;
+
     void Update()
     {
         if (!isLocalPlayer)
@@ -13,8 +15,8 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 6.0f;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * 6.0f;
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * _playerSpeed;
+        var z = Input.GetAxis("Vertical") * Time.deltaTime * _playerSpeed;
 
         Plane playerPlane = new Plane(Vector3.up, transform.position);
 
