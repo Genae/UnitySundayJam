@@ -13,13 +13,26 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * 6.0f;
+        var z = Input.GetAxis("Vertical") * Time.deltaTime * 6.0f;
 
-        transform.Rotate(0, x, 0);
-        transform.Translate(0, 0, z);
+        Plane playerPlane = new Plane(Vector3.up, transform.position);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        float hitdist = 0.0f;
+        if (playerPlane.Raycast(ray, out hitdist))
+        {
+            Vector3 targetPoint = ray.GetPoint(hitdist);
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 30 * Time.deltaTime);
+        }
+
+        transform.Translate(x, 0, z, Space.World);
+
+        if (Input.GetMouseButtonDown(0))
         {
             CmdFire();
         }
