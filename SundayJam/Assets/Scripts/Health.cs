@@ -22,7 +22,7 @@ public class Health : NetworkBehaviour
         currentHealth -= (amount - baseTankiness);
         if (currentHealth <= 0)
         {
-            currentHealth = 0;
+            currentHealth = maxHealth;
             owner.Kills++;
             GetComponent<PlayerController>().Deaths++;
             RpcRespawn();
@@ -60,7 +60,7 @@ public class Health : NetworkBehaviour
 
             // Set the player’s position to the chosen spawn point
             transform.position = spawnPoint;
-            currentHealth = maxHealth;
+            OnChangeHealth(maxHealth);
         }
     }
 }

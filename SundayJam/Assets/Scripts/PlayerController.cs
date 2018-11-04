@@ -100,12 +100,14 @@ public class PlayerController : NetworkBehaviour
                 Renderer[] rs = GetComponentsInChildren<Renderer>();
                 foreach (Renderer r in rs)
                     r.enabled = false;
+                GetComponentInChildren<Canvas>().enabled = false;
             }
             else
             {
                 Renderer[] rs = GetComponentsInChildren<Renderer>();
                 foreach (Renderer r in rs)
                     r.enabled = true;
+                GetComponentInChildren<Canvas>().enabled = true;
             }
 
         }
