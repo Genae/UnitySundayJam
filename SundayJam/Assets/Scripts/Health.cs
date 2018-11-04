@@ -11,6 +11,7 @@ public class Health : NetworkBehaviour
     public int currentHealth = maxHealth;
 
     public RectTransform healthBar;
+    public AudioClip[] deathSounds;
 
     public void TakeDamage(int amount, PlayerController owner)
     {
@@ -57,5 +58,6 @@ public class Health : NetworkBehaviour
             transform.position = spawnPoint;
             currentHealth = maxHealth;
         }
+        AudioSource.PlayClipAtPoint(deathSounds[Random.Range(0,deathSounds.Length)],this.transform.position);
     }
 }

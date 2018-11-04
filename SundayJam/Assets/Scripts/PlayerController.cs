@@ -9,8 +9,10 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+
     public WeaponBase WeaponToEquip;
     private WeaponBase _equipedWeapon;
+    private AudioClip _fireSound;
 
     public float PlayerSpeed = 6;
     public bool IsInvisible = true;
@@ -104,6 +106,7 @@ public class PlayerController : NetworkBehaviour
         _equipedWeapon = weaponBase;
         _equipedWeapon.player = this;
         this.bulletPrefab = weaponBase.bulletPrefab;
+        _fireSound = weaponBase.fireSound;
     }
 
 
@@ -131,6 +134,8 @@ public class PlayerController : NetworkBehaviour
 
         // Spawn the bullet on the Clients
         NetworkServer.Spawn(bullet);
+
+        AudioSource.PlayClipAtPoint(_fireSound,this.transform.position);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);

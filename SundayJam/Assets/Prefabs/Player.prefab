@@ -401,9 +401,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af331cc857c6f0348ad9e9482379f5cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LocalPlayerMaterial: {fileID: 0}
   bulletPrefab: {fileID: 0}
   bulletSpawn: {fileID: 4034148280020598}
-  weapon: {fileID: 0}
+  WeaponToEquip: {fileID: 0}
+  PlayerSpeed: 6
+  IsInvisible: 1
+  PlayerName: Dummy
+  Kills: 0
+  Deaths: 0
 --- !u!114 &114468372274904522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -417,6 +423,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   healthBar: {fileID: 224423837518563952}
+  deathSounds:
+  - {fileID: 8300000, guid: fc9556ef0130eb440a5214e1070b36bc, type: 3}
+  - {fileID: 8300000, guid: c52f2a4ddc1d1bb47acfa4792a7fbf5a, type: 3}
+  - {fileID: 8300000, guid: 163fa57de14216b4885d805f434ca8ba, type: 3}
 --- !u!114 &114510090373701944
 MonoBehaviour:
   m_ObjectHideFlags: 1

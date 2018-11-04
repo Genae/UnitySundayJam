@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ab8a3dcd02444489c8144b9705aac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: 5a2a3fae9bbffb44b8fd677d9dbecf11, type: 3}
 --- !u!135 &135661429633647416
 SphereCollider:
   m_ObjectHideFlags: 1

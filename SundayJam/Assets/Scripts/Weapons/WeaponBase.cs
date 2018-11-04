@@ -12,6 +12,8 @@ namespace Assets.Scripts.Weapons
         public int MaxAmmunition;
         public int CurrentAmmunition;
 
+        public AudioClip fireSound;
+
         public GameObject bulletPrefab;
         public PlayerController player;
 
