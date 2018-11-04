@@ -5,29 +5,66 @@ using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
+    public Material LocalPlayerMaterial;
+
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public WeaponBase WeaponToEquip;
     private WeaponBase _equipedWeapon;
 
-    private float _playerSpeed = 6;
+    public float PlayerSpeed = 6;
+    public bool IsInvisible = true;
+    private float _timer;
 
     void Update()
     {
         if (!isLocalPlayer)
         {
+            if (IsInvisible)
+            {
+                Renderer[] rs = GetComponentsInChildren<Renderer>();
+                foreach (Renderer r in rs)
+                    r.enabled = false;
+            }
+            else
+            {
+                Renderer[] rs = GetComponentsInChildren<Renderer>();
+                foreach (Renderer r in rs)
+                    r.enabled = true;
+            }
+
             return;
         }
 
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * _playerSpeed;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * _playerSpeed;
+        //visibility
+        if (!IsInvisible)
+        {
+            _timer += Time.deltaTime;
+        }
+        if(_timer > 5)
+        {
+            IsInvisible = true;
+            _timer = 0;
+        }
+
+        var mats = GetComponent<MeshRenderer>().material;
+        var c = mats.color;
+        if (IsInvisible)
+        {
+            mats.color = new Color(c.r, c.g, c.b, 0.5f);
+        }
+        else
+        {
+            mats.color = new Color(c.r, c.g, c.b, 1);
+        }
+
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed;
+        var z = Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed;
         if (WeaponToEquip != null)
         {
             EquipWeapon(WeaponToEquip);
             WeaponToEquip = null;
         }
-
-
 
         Plane playerPlane = new Plane(Vector3.up, transform.position);
 
@@ -68,6 +105,7 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        GetComponent<MeshRenderer>().material = LocalPlayerMaterial;
         GetComponent<MeshRenderer>().material.color = Color.blue;
         EquipWeapon(Resources.FindObjectsOfTypeAll<WeaponBase>().First());
     }
@@ -77,6 +115,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void CmdFire()
     {
+        IsInvisible = false;
         // Create the Bullet from the Bullet Prefab
         var bullet = (GameObject) Instantiate(
             bulletPrefab,
