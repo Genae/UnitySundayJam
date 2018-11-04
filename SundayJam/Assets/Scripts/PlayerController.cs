@@ -130,6 +130,19 @@ public class PlayerController : NetworkBehaviour
         _timer = 0;
         IsInvisible = false;
         // Create the Bullet from the Bullet Prefab
+
+        if(_equipedWeapon.name == "ShotGun")
+        {
+            var bullet1 = (GameObject)Instantiate(bulletPrefab,bulletSpawn.position + new Vector3(2f,0,0), bulletSpawn.rotation);
+            var bullet2 = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position + new Vector3(-2f, 0, 0), bulletSpawn.rotation);
+            bullet1.GetComponent<Rigidbody>().velocity = bullet1.transform.forward * 30;
+            bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * 30;
+            NetworkServer.Spawn(bullet1);
+            NetworkServer.Spawn(bullet2);
+            AudioSource.PlayClipAtPoint(_fireSound, this.transform.position);
+            Destroy(bullet1, 2.0f);
+            Destroy(bullet2, 2.0f);
+        }
         var bullet = (GameObject) Instantiate(
             bulletPrefab,
             bulletSpawn.position,
