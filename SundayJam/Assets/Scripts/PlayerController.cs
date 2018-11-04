@@ -70,20 +70,22 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            _equipedWeapon.ButtonDown();
+            if(_equipedWeapon != null)
+                _equipedWeapon.ButtonDown();
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            _equipedWeapon.ButtonUp();
+            if (_equipedWeapon != null)
+                _equipedWeapon.ButtonUp();
         }
-
-        _equipedWeapon.RunUpdate(Time.deltaTime);
+        if(_equipedWeapon != null)
+            _equipedWeapon.RunUpdate(Time.deltaTime);
     }
 
     public void EquipWeapon(WeaponBase weaponBase)
     {
-        _equipedWeapon = weaponBase;
+        _equipedWeapon = Instantiate(weaponBase);
         _equipedWeapon.player = this;
         this.bulletPrefab = weaponBase.bulletPrefab;
         _fireSound = weaponBase.FireSounds;
@@ -116,7 +118,6 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         GetComponent<MeshRenderer>().material.color = Color.blue;
-        EquipWeapon(Resources.LoadAll<WeaponBase>("Items").First(w => !w.Automatic));
     }
 
     void Start()

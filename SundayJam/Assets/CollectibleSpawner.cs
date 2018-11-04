@@ -15,12 +15,16 @@ public class CollectibleSpawner : NetworkBehaviour
     }
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+	    if (!isServer)
+	        return;
 	    if (CurrentCooldown > 0)
 	    {
 	        CurrentCooldown -= Time.deltaTime;
 	        return;
 	    }
+        
 
 	    CurrentCooldown = Cooldown;
 	    CmdSpawnRandomBooster();

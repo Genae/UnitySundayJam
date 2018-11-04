@@ -1194,8 +1194,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 489117071}
-  - component: {fileID: 489117073}
-  - component: {fileID: 489117072}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -1267,57 +1265,10 @@ Transform:
   - {fileID: 504292615}
   - {fileID: 2132125109}
   - {fileID: 1181542152}
+  - {fileID: 1857978448}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &489117072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 489117070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445fe47d46567664b883ae9662199c9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cooldown: 10
-  CurrentCooldown: 0
-  AllCollectables:
-  - {fileID: 114170733573264044, guid: b5a542ddf473aa148ad8e6dcaf0da186, type: 2}
-  - {fileID: 114389663203332736, guid: e2cb62e20953ada449b60acb37eec2ff, type: 2}
---- !u!114 &489117073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 489117070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1 &504292614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3654,6 +3605,8 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1796897689150830, guid: 66d54d7935881384083c516cd5b4ce72, type: 2}
+  - {fileID: 1207668152104070, guid: b5a542ddf473aa148ad8e6dcaf0da186, type: 2}
+  - {fileID: 1724770338596928, guid: e2cb62e20953ada449b60acb37eec2ff, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -4752,6 +4705,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 11553bc2fdda89e44b18a22b360a5c80,
     type: 3}
   m_PrefabInternal: {fileID: 423443871}
+--- !u!1 &1857978447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1857978448}
+  - component: {fileID: 1857978450}
+  - component: {fileID: 1857978449}
+  m_Layer: 0
+  m_Name: spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1857978448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857978447}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 489117071}
+  m_RootOrder: 54
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1857978449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857978447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445fe47d46567664b883ae9662199c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 10
+  CurrentCooldown: 0
+  AllCollectables: []
+--- !u!114 &1857978450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1857978447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1001 &1866557826
 Prefab:
   m_ObjectHideFlags: 0
