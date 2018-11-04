@@ -12,7 +12,7 @@ namespace Assets.Scripts.Weapons
         public int MaxAmmunition;
         public int CurrentAmmunition;
 
-        public AudioClip fireSound;
+        public AudioClip[] FireSounds;
 
         public GameObject bulletPrefab;
         public PlayerController player;
@@ -22,7 +22,6 @@ namespace Assets.Scripts.Weapons
 
         public void ButtonDown()
         {
-            Debug.Log("Start");
             if (Automatic)
             {
                 _shooting = true;
@@ -33,7 +32,6 @@ namespace Assets.Scripts.Weapons
 
         public void ButtonUp()
         {
-            Debug.Log("Stop");
             _shooting = false;
         }
 

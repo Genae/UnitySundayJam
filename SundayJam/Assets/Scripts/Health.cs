@@ -12,6 +12,8 @@ public class Health : NetworkBehaviour
 
     public RectTransform healthBar;
     public AudioClip[] deathSounds;
+    public AudioClip[] hitSounds;
+    public AudioClip[] hurtSounds;
 
     public void TakeDamage(int amount, PlayerController owner)
     {
@@ -38,6 +40,8 @@ public class Health : NetworkBehaviour
     void OnChangeHealth(int health)
     {
         healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+        AudioSource.PlayClipAtPoint(hitSounds[Random.Range(0, hitSounds.Length)], this.transform.position);
+        AudioSource.PlayClipAtPoint(hurtSounds[Random.Range(0, hurtSounds.Length)], this.transform.position);
     }
 
     [ClientRpc]

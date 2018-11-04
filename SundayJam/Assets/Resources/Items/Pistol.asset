@@ -15,7 +15,11 @@ MonoBehaviour:
   Cooldown: 1
   MaxAmmunition: 10
   CurrentAmmunition: 10
-  fireSound: {fileID: 8300000, guid: e4f0d1280712562489038210e7ec0221, type: 3}
+  FireSounds:
+  - {fileID: 8300000, guid: 55de27e6a4045fc4faf323a8171f7655, type: 3}
+  - {fileID: 8300000, guid: 301f74bb35b86514fa5105143eb540d1, type: 3}
+  - {fileID: 8300000, guid: 3895ff96dbe0daf47acb03ec86f66b9d, type: 3}
+  - {fileID: 8300000, guid: 6e77ce05276be8d4bbcd4f9215fdd026, type: 3}
   bulletPrefab: {fileID: 1796897689150830, guid: 66d54d7935881384083c516cd5b4ce72,
     type: 2}
   player: {fileID: 0}
