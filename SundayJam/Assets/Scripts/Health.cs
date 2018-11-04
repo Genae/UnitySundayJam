@@ -11,7 +11,6 @@ public class Health : NetworkBehaviour
     public int currentHealth = maxHealth;
 
     public RectTransform healthBar;
-    public AudioClip[] deathSounds;
     public AudioClip[] hitSounds;
     public AudioClip[] hurtSounds;
 
@@ -39,6 +38,7 @@ public class Health : NetworkBehaviour
 
     void OnChangeHealth(int health)
     {
+        currentHealth = health;
         healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
         AudioSource.PlayClipAtPoint(hitSounds[Random.Range(0, hitSounds.Length)], this.transform.position);
         AudioSource.PlayClipAtPoint(hurtSounds[Random.Range(0, hurtSounds.Length)], this.transform.position);
@@ -62,6 +62,5 @@ public class Health : NetworkBehaviour
             transform.position = spawnPoint;
             currentHealth = maxHealth;
         }
-        AudioSource.PlayClipAtPoint(deathSounds[Random.Range(0,deathSounds.Length)],this.transform.position);
     }
 }
