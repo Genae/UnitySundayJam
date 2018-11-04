@@ -25,6 +25,13 @@ public class Health : NetworkBehaviour
         }
     }
 
+    public void AddHealth(int amount)
+    {
+        if (!isServer)
+            return;
+        currentHealth += amount;
+    }
+
     void OnChangeHealth(int health)
     {
         healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
