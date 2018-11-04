@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using Assets.Scripts.Weapons;
+using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
+    public WeaponBase WeaponToEquip;
+    private WeaponBase _equipedWeapon;
 
     private float _playerSpeed = 6;
 
@@ -17,6 +21,13 @@ public class PlayerController : NetworkBehaviour
 
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * _playerSpeed;
         var z = Input.GetAxis("Vertical") * Time.deltaTime * _playerSpeed;
+        if (WeaponToEquip != null)
+        {
+            EquipWeapon(WeaponToEquip);
+            WeaponToEquip = null;
+        }
+
+
 
         Plane playerPlane = new Plane(Vector3.up, transform.position);
 
@@ -36,17 +47,38 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            CmdFire();
+            _equipedWeapon.ButtonDown();
         }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            _equipedWeapon.ButtonUp();
+        }
+
+        _equipedWeapon.RunUpdate(Time.deltaTime);
+    }
+
+    public void EquipWeapon(WeaponBase weaponBase)
+    {
+        _equipedWeapon = weaponBase;
+        _equipedWeapon.player = this;
+        this.bulletPrefab = weaponBase.bulletPrefab;
+    }
+
+
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<MeshRenderer>().material.color = Color.blue;
+        EquipWeapon(Resources.FindObjectsOfTypeAll<WeaponBase>().First());
     }
 
     // This [Command] code is called on the Client …
     // … but it is run on the Server!
     [Command]
-    void CmdFire()
+    public void CmdFire()
     {
         // Create the Bullet from the Bullet Prefab
-        var bullet = (GameObject)Instantiate(
+        var bullet = (GameObject) Instantiate(
             bulletPrefab,
             bulletSpawn.position,
             bulletSpawn.rotation);
@@ -59,10 +91,5 @@ public class PlayerController : NetworkBehaviour
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        GetComponent<MeshRenderer>().material.color = Color.blue;
     }
 }
