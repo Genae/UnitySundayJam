@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 using Assets.Scripts.Weapons;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -15,7 +16,10 @@ public class PlayerController : NetworkBehaviour
     private AudioClip _fireSound;
 
     public float PlayerSpeed = 6;
+
+    [SyncVar(hook = "OnChangeInvisible")]
     public bool IsInvisible = true;
+
     private float _timer;
 
     public string PlayerName = "Dummy";
@@ -26,19 +30,6 @@ public class PlayerController : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            if (IsInvisible)
-            {
-                Renderer[] rs = GetComponentsInChildren<Renderer>();
-                foreach (Renderer r in rs)
-                    r.enabled = false;
-            }
-            else
-            {
-                Renderer[] rs = GetComponentsInChildren<Renderer>();
-                foreach (Renderer r in rs)
-                    r.enabled = true;
-            }
-
             return;
         }
 
@@ -47,21 +38,10 @@ public class PlayerController : NetworkBehaviour
         {
             _timer += Time.deltaTime;
         }
-        if(_timer > 5)
+        if(_timer > 2)
         {
             IsInvisible = true;
             _timer = 0;
-        }
-
-        var mats = GetComponent<MeshRenderer>().material;
-        var c = mats.color;
-        if (IsInvisible)
-        {
-            mats.color = new Color(c.r, c.g, c.b, 0.5f);
-        }
-        else
-        {
-            mats.color = new Color(c.r, c.g, c.b, 1);
         }
 
         var x = Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed;
@@ -109,12 +89,37 @@ public class PlayerController : NetworkBehaviour
         _fireSound = weaponBase.fireSound;
     }
 
+    public void OnChangeInvisible(bool invisible)
+    {
+        IsInvisible = invisible;
+        if (!isLocalPlayer)
+        {
+            Debug.Log(invisible + ", " + IsInvisible);
+            if (IsInvisible)
+            {
+                Renderer[] rs = GetComponentsInChildren<Renderer>();
+                foreach (Renderer r in rs)
+                    r.enabled = false;
+            }
+            else
+            {
+                Renderer[] rs = GetComponentsInChildren<Renderer>();
+                foreach (Renderer r in rs)
+                    r.enabled = true;
+            }
+
+        }
+    }
 
     public override void OnStartLocalPlayer()
     {
-        GetComponent<MeshRenderer>().material = LocalPlayerMaterial;
         GetComponent<MeshRenderer>().material.color = Color.blue;
         EquipWeapon(Resources.LoadAll<WeaponBase>("Items").First(w => !w.Automatic));
+    }
+
+    void Start()
+    {
+        OnChangeInvisible(true);
     }
 
     // This [Command] code is called on the Client …
@@ -122,6 +127,7 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void CmdFire()
     {
+        _timer = 0;
         IsInvisible = false;
         // Create the Bullet from the Bullet Prefab
         var bullet = (GameObject) Instantiate(
