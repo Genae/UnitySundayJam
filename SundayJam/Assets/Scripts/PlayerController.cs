@@ -147,6 +147,7 @@ public class PlayerController : NetworkBehaviour
             bulletPrefab,
             bulletSpawn.position,
             bulletSpawn.rotation);
+        bullet.GetComponent<Bullet>().Owner = this;
 
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 30;
