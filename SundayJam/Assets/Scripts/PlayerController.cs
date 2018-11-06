@@ -18,16 +18,25 @@ public class PlayerController : NetworkBehaviour
     public float PlayerSpeed = 6;
 
     [SyncVar(hook = "OnChangeInvisible")]
-    public bool IsInvisible = true;
+    private bool IsInvisible = true;
 
-    private float _timer;
+    private float _timer = 0;
 
     public string PlayerName = "Dummy";
     public int Kills = 0;
     public int Deaths = 0;
 
+    [Command]
+    void CmdSetInvisible(bool value)
+    {
+        IsInvisible = value;
+    }
+
     void Update()
     {
+
+        updateRenderVisibility();
+
         if (!isLocalPlayer)
         {
             return;
@@ -40,7 +49,7 @@ public class PlayerController : NetworkBehaviour
         }
         if(_timer > 2)
         {
-            IsInvisible = true;
+            CmdSetInvisible(true);
             _timer = 0;
         }
 
@@ -94,9 +103,12 @@ public class PlayerController : NetworkBehaviour
     public void OnChangeInvisible(bool invisible)
     {
         IsInvisible = invisible;
+    }
+
+    private void updateRenderVisibility()
+    {
         if (!isLocalPlayer)
         {
-            Debug.Log(invisible + ", " + IsInvisible);
             if (IsInvisible)
             {
                 Renderer[] rs = GetComponentsInChildren<Renderer>();
@@ -122,7 +134,7 @@ public class PlayerController : NetworkBehaviour
 
     void Start()
     {
-        OnChangeInvisible(true);
+        CmdSetInvisible(true);
     }
 
     // This [Command] code is called on the Client …
@@ -131,7 +143,7 @@ public class PlayerController : NetworkBehaviour
     public void CmdFire()
     {
         _timer = 0;
-        IsInvisible = false;
+        CmdSetInvisible(false);
         // Create the Bullet from the Bullet Prefab
 
         if(_equipedWeapon.name == "ShotGun")
